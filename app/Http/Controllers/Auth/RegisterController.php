@@ -71,11 +71,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
-    // public function registerForm(){
-    //     return view("auth.register");
-    // }
-
     public function register(Request $request){
         if($request->isMethod('post')){
             $data = $request->input();
@@ -86,7 +81,7 @@ class RegisterController extends Controller
                 ->withErrors($validator)->withInput();
             } else {
                 $this->create($data);
-                $request->session()->put('registered',$data['username']);//usernameを送る
+                $request->session()->put('registered',$data['username']);
                 return redirect('added');
             }
         }

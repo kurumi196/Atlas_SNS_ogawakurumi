@@ -25,7 +25,7 @@ class UsersController extends Controller
             'password' => 'required|string|regex:/^[a-zA-Z0-9]+$/|min:8|max:20|confirmed',
             'password_confirmation'=>'required|string|regex:/^[a-zA-Z0-9]+$/|min:8|max:20',
             'bio'=>'nullable|string|max:150',
-            'images'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|regex:/^[a-zA-Z0-9]+$/',
+            'images'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|regex:/\A([a-zA-Z0-9])+\z/u'
         ]);
     }
 

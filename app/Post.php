@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // use Notifiable;  *****要らないかも？いつ書いたかわからない
-
-    protected $fillable=[//*****modelの初期設定でfillableしないと値を入れられない
+    protected $fillable=[
         'user_id',
         'post',
     ];
