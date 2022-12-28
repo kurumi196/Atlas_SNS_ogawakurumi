@@ -11,16 +11,11 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/home', 'HomeController@index')->name('home');
-
-//Auth::routes();
-
+//Laravelで最初に表示するページの設定
+Route::get('/', function () {return redirect('/login');});
 
 //ログアウト中のページ
-Route::get('/login', 'Auth\LoginController@login');
+Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/register', 'Auth\RegisterController@register');
@@ -30,11 +25,38 @@ Route::get('/added', 'Auth\RegisterController@added');
 Route::post('/added', 'Auth\RegisterController@added');
 
 //ログイン中のページ
-Route::get('/top','PostsController@index');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/',function(){return redirect('/top');});
 
-Route::get('/profile','UsersController@profile');
+// ********** header **********
+    Route::get('/top','PostsController@show');
+    Route::get('/logout','Auth\LoginController@logout');
+    Route::get('/myprofile','UsersController@myprofile');
 
-Route::get('/search','UsersController@index');
+// ********** /top **********
+    Route::post('post/create','PostsController@postCreate');
+    Route::post('post/update','PostsController@postUpdate');
+    Route::get('post/{id}/delete','PostsController@postDelete');
 
-Route::get('/follow-list','PostsController@index');
-Route::get('/follower-list','PostsController@index');
+// ********** /search **********
+    Route::get('/search','UsersController@search');
+    Route::post('/search','UsersController@search');
+    Route::get('/search/{id}/unfollow','UsersController@unfollow');
+    Route::get('/search/{id}/follow','UsersController@follow');
+
+// ********** /follow-list **********
+    Route::get('/follow-list','FollowsController@followList');
+
+// ********** /follower-list **********
+    Route::get('/follower-list','FollowsController@followerList');
+
+// ********** /profile **********
+    Route::get('/profile/{id}','UsersController@profile');
+    // Route::post('/profile/{id}','UsersController@profile');
+    Route::get('/profile/{id}/unfollow','UsersController@unfollowP');
+    Route::get('/profile/{id}/follow','UsersController@followP');
+
+// ********** /myprofile **********
+    Route::get('/myprofile','UsersController@myprofile');
+    Route::post('/edit/myprofile','UsersController@editMyprofile');
+});

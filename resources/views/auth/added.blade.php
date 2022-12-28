@@ -2,13 +2,16 @@
 
 @section('content')
 
-<div id="clear">
-  <p>〇〇さん</p>
-  <p>ようこそ！AtlasSNSへ！</p>
-  <p>ユーザー登録が完了しました。</p>
-  <p>早速ログインをしてみましょう。</p>
 
-  <p class="btn"><a href="/login">ログイン画面へ</a></p>
+<h2><strong>{{ session('registered')}}さん</strong></h2>
+<h4><strong>ようこそ！AtlasSNSへ！</strong></h4>
+
+<h4 class="welcome-text">
+    ユーザー登録が完了いたしました。<br>早速ログインをしてみましょう！
+</h4>
+
+<div class="center_button">
+    <button class="btn btn-danger"><a href="/login">ログイン画面へ</a></button>
 </div>
 
 @endsection
